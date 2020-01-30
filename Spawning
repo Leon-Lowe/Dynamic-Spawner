@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Spawning : MonoBehaviour
+{
+    private float timeBtwSpawn;
+    public float minTimeBtwSpawn;
+    public float maxTimeBtwSpawn;
+
+    public List<GameObject> spawners;
+
+    public GameObject enemy;
+
+    void Start()
+    {
+        timeBtwSpawn = Random.Range(minTimeBtwSpawn, maxTimeBtwSpawn);
+
+        Debug.Log(timeBtwSpawn);
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (Time.realtimeSinceStartup >= timeBtwSpawn)
+            Spawn();
+    }
+
+    void Spawn()
+    {
+        GameObject spawner = spawners[Random.Range(0, spawners.Count)];
+        Instantiate(enemy, spawner.transform.position, Quaternion.identity);
+
+        timeBtwSpawn = Time.realtimeSinceStartup + Random.Range(minTimeBtwSpawn, maxTimeBtwSpawn);
+
+        Debug.Log(timeBtwSpawn);
+    }
+}
